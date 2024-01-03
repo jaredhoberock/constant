@@ -93,10 +93,9 @@ constexpr constant<detail::parse_int_digits(0, (digits - '0')...)> operator "" _
 
 #endif // __cpp_user_defined_literals
 
-#if __has_include(<fmt/core.h>) and __has_include(<fmt/ranges.h>)
+#if __has_include(<fmt/format.h>)
 
-#include <fmt/core.h>
-#include <fmt/ranges.h>
+#include <fmt/format.h>
 
 template<auto v>
 struct fmt::formatter<constant<v>>
