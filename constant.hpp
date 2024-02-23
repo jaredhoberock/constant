@@ -42,13 +42,17 @@ struct constant
   CONSTANT_BIN_OP_CONSTANT(+)
   CONSTANT_BIN_OP_CONSTANT(-)
   CONSTANT_BIN_OP_CONSTANT(*)
-  CONSTANT_BIN_OP_CONSTANT(/)
-  CONSTANT_BIN_OP_CONSTANT(%)
   CONSTANT_BIN_OP_CONSTANT(&)
   CONSTANT_BIN_OP_CONSTANT(|)
   CONSTANT_BIN_OP_CONSTANT(^)
   CONSTANT_BIN_OP_CONSTANT(<<)
   CONSTANT_BIN_OP_CONSTANT(>>)
+
+  template<auto other> requires (other != 0) and requires {v / other; }
+  constexpr constant<(v / other)> operator/(constant<other>) const noexcept { return {}; }
+
+  template<auto other> requires (other != 0) and requires {v % other; }
+  constexpr constant<(v % other)> operator%(constant<other>) const noexcept { return {}; }
 
 #undef CONSTANT_BIN_OP_CONSTANT
 
